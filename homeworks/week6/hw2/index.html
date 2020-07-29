@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>新拖延表單</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css"/>
+    </head>
+    <style>
+        body {
+            margin-top: 129px;
+            margin-bottom: 66px;
+            margin-left: 385px;
+            margin-right: 410px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .wrapper {
+            background: white;
+            width: 645px;
+            height: 1085px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wrapper > div {
+            background: #fad312;
+            height: 8px;
+        }
+
+        .answer {
+            width: 287px;
+            height: 23px;
+            border: solid 1px #d0d0d0;
+            color: #d0d0d0;
+            padding-top: 5px;
+        }
+
+        .navbar_head {
+            margin-top: 54px;
+        }
+
+        .navbar_content p {
+            font-size: 14px;
+        }
+        .navbar, .info, .completed {
+            margin-left: 42px;
+        }
+
+        .small_wrap {
+            margin-bottom: 50px;;
+        }
+
+        .small_wrap p, .completed p {
+            font-size: 13px;
+        }
+
+        .option {
+            display: flex;
+            flex-direction: wrap;
+            margin-bottom: -20px;
+        }
+
+        .grey {
+            background: #bababa;
+            border: solid 1px #d0d0d0;
+            border-radius: 50%;
+            width: 12px;
+            height: 12px;
+        }
+        
+        .ops {
+            margin-left: 10px;
+            font-size: 13px;
+        }
+
+        .footer h2 {
+            font-size: 13px;
+        }
+
+        .complete_button {
+            padding: 13px 30px;
+            background: #fad312;
+            border-radius: 3px;
+            display: inline-block;
+        }
+
+        .completed p {
+            margin-top: 0px;
+        }
+
+        .footer_wrapper p{
+            text-align: center;
+            margin-top: 60px;
+        }
+
+
+        @media(max-width: 768px) {
+            .wrapper {
+                margin: 0px 24px;
+            }
+        }
+
+    </style>
+    <body>
+        <div class="wrapper">
+            <div></div>
+            <section class="navbar">
+                <div class="navbar_head">
+                    <h1>新拖延運動報名表單</h1>
+                </div>
+                <div class="navbar_content">
+                    <p>活動日期：2020/12/10 ~ 2020/12/11</p>
+                    <p>活動地點：台北市大安區新生南路二段1號</p>
+                </div>
+            </section>
+            <section class="info">
+                <div class="small_wrap">
+                    <h3>暱稱</h3>
+                    <p class="answer">您的回答</p>                </div>
+                <div class="small_wrap">
+                    <h3>電子郵件</h3>
+                    <p class="answer">您的電子郵件</p>
+                </div>
+                <div class="small_wrap">
+                    <h3>手機號碼</h3>
+                    <p class="answer">您的手機號碼</p>
+                </div>
+                <div class="small_wrap"><h3>報名類型</h3>
+                    <div class="option">
+                        <p class="grey"></p>
+                        <p class="ops">躺在床上用想像力實作</p>
+                    </div>
+                    <div class="option">
+                        <p class="grey"></p>
+                        <p class="ops">趴在地上滑手機找現成的</p>
+                    </div>
+                </div>
+                <div class="small_wrap">
+                    <h3>怎麼知道這個活動的？</h3>
+                    <p class="answer">您的回答</p>
+                </div>
+                <div class="small_wrap">
+                    <h3>其他</h3>
+                    <p>對活動的一些建議</p>
+                    <p class="answer">您的回答</p>
+                </div>
+            </section>
+            <section class="completed">
+                <p class="complete_button">提交</p>
+                <p>請勿透過表單送出您的密碼</p>
+            </section>
+        </div>
+        <footer>
+            <div class="footer_wrapper">
+                <p>© 2020 © Copyright. All rights Reserved.</p>
+            </div>
+        </footer>
+    </body>
+</html>
