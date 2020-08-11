@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>新拖延表單</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css"/>
+    </head>
+
+    <style>
+        body {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .wrapper {
+            max-width: 645px;
+            background: white;
+            margin: 10% auto;
+            box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
+            border-top: solid 8px #fad312;
+            padding: 64px 32px;
+        }
+
+        .apply-form_title {
+            margin: 0;
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .apply-form_desc {
+            margin-top: 32px;
+            font-size: 14px;
+            line-height: 1.5em;
+        }
+
+        .apply-form_notice {
+            color:#e74149;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .input-block {
+            margin-top: 55px;
+        }
+
+        .input-block_title {
+            font-size: 20px;
+        }
+
+        .input-block_desc {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .input-block_input {
+            margin-top: 15px;
+        }
+
+        .input-block_input input[type=text] {
+            border: solid 1px #d0d0d0;
+            font-size: 16px;
+            padding: 5px;
+        }
+
+        .input-block_input label {
+            display: block;
+            margin-top: 12px;
+        }
+
+        .input-block_error {
+            margin-top: 4px;
+            color: #e74149;
+            position: absolute;
+        }
+
+        .required .input-block_title:after {
+            content: '*';
+            color: #e74149;
+            margin-left: 5px;
+        }
+
+        .apply-form_submit {
+            background: #fad321;
+            color: black;
+            font-size: 15px;
+            padding: 12px 32px;
+            margin-top: 48px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* .required p {
+            color: red;
+        } */
+
+        footer {
+            background: black;
+            color: #999999;
+            font-size: 13px;
+            text-align: center;
+            padding: 24px 12px;
+        }
+
+        .hide-error .input-block_error {
+            visibility: hidden;
+        }
+
+        @media(max-width: 768px) {
+            .wrapper {
+                margin: 10% 10px;
+            }
+        }
+    </style>
+    <body>
+        <div class="wrapper">
+            <form class="apply-form">
+                <h1 class="apply-form_title">新拖延運動報名表單</h1>
+                <p class="apply-form_desc">
+                    活動日期：2020/12/10 ~ 2020/12/11<br>
+                    活動地點：台北市大安區新生南路二段1號
+                </p>
+                <p class="apply-form_notice">
+                    * 必填
+                </p>
+                <div class="input-block required hide-error">
+                    <div class="input-block_title">
+                        暱稱
+                    </div>
+                    <div class="input-block_input">
+                        <input name="nickname" type="text" />
+                    </div>
+                    <div class="input-block_error">請輸入暱稱</div>
+                </div>
+                <div class="input-block required hide-error">
+                    <div class="input-block_title">
+                        電子郵件
+                    </div>
+                    <div class="input-block_input">
+                        <input name="email" type="text" />
+                    </div>
+                    <div class="input-block_error">請輸入電子郵件</div>
+                </div>
+                <div class="input-block required hide-error">
+                    <div class="input-block_title">
+                        手機號碼
+                    </div>
+                    <div class="input-block_input">
+                        <input name="mobile" type="text" />
+                    </div>
+                    <div class="input-block_error">請輸入手機號碼</div>
+                </div>
+                <div class="input-block required hide-error">
+                    <div class="input-block_title">
+                        報名類型
+                    </div>
+                    <div class="input-block_input">
+                        <label>
+                            <input name="type" value="1" type="radio" />
+                            躺在床上用想像力實作
+                        </label>
+
+                        <label>
+                            <input name="type" value="2" type="radio" />
+                            趴在地上找現成的
+                        </label>
+                        <div class="input-block_error">請輸入報名類型</div>
+                    </div>
+                </div>
+                <div class="input-block required hide-error">
+                    <div class="input-block_title">
+                        怎麼知道這個活動的？
+                    </div>
+                    <div class="input-block_input">
+                        <input name="refer" type="text" />
+                    </div>
+                    <div class="input-block_error">請輸入資料</div>
+                </div>
+                <div class="input-block">
+                    <div class="input-block_title">
+                        其他
+                    </div>
+                    <div class="input-block_desc">
+                        對活動的一些建議
+                    </div>
+                    <div class="input-block_input">
+                        <input name="nickname" type="text" />
+                    </div>
+                </div>
+                <input class="apply-form_submit" type="submit" value="提交" />
+                <p class="apply-form_desc">
+                    請勿透過表單送出您的密碼。
+                </p>
+            </form>
+        </div>
+        <footer>© 2020 © Copyright. All rights Reserved.</footer>
+        <script>
+            document
+            .querySelector('form')
+            .addEventListener('submit', function(e) {
+                e.preventDefault()
+                let hasError = false;
+                let values = {};
+                const elements = document.querySelectorAll('.required');
+
+                for (element of elements) {
+                    const radios = element.querySelectorAll('input[type=radio]');
+                    const input = element.querySelector('input[type=text]');
+                    let isValid = true;
+                    if (input) {
+                        values[input.name] = input.value;
+                        if (!input.value) {
+                            isValid = false
+                        } 
+                    } else if (radios.length) {
+                        isValid = [...radios].some(radio => radio.checked);
+                        if (isValid) {
+                            let r = element.querySelector('input[type=radio]:checked');
+                            values[r.name] = r.value
+                        }
+                    } else {
+                        continue
+                    }
+
+                    if (!isValid) {
+                        element.classList.remove('hide-error');
+                        hasError = true;
+                    } else {
+                        element.classList.add('hide-error')
+                    }
+                }
+                alert(JSON.stringify(values))
+            })
+        </script>
+    </body>
+</html>
