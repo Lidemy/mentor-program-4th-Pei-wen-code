@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>TODO List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css"/>
+    </head>
+    <style>
+        body {
+            font-family: sans-serif;
+            background: navajowhite;
+        }
+        .title {
+            text-align: center;
+        }
+        .wrapper {
+            max-width: 500px;
+            border-radius: 30px;
+            margin: 0 auto;
+            padding: 32px;
+            background: lightcoral;
+        }
+
+        .wrapper .input-todo {
+            display: inline-block;
+            width: 408px;
+        }
+
+        button {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .btn-add {
+            padding: 1px 15px;
+        }
+
+        .todos {
+            margin-top: 7px;
+        }
+
+        .todo {
+            display: flex;
+            align-items: center;
+        }
+
+        .todo-content {
+            flex: 1;
+            margin: 10px;
+        }
+
+        .todo-check {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .todo.done .todo-content {
+            text-decoration: line-through;
+        }
+
+    </style>
+    <body>
+        <div class="wrapper">
+            <div class="title">
+                <h1>TODO LIST</h1>
+            </div>
+            <input class="input-todo" type="text" placeholder="Add new task here"/><button class="btn-add">Add</button>
+            <div class="todos">
+                <div class="todo">
+                    <input class="todo-check"type="checkbox" />
+                    <div class="todo-content">Fix Bug</div>
+                    <button class="btn-delete">Delete</button>
+                </div>
+                <div class="todo">
+                    <input class="todo-check"type="checkbox" />
+                    <div class="todo-content">Grocery Shopping</div>
+                    <button class="btn-delete">Delete</button>
+                </div>
+            </div>
+        </div>
+        <script>
+            //按下新增按鈕會發生的事
+            document.querySelector('.btn-add').addEventListener('click', function(e) {
+                // e.preventDefault();
+                // console.log(e.target)
+                // let num = 3;
+                // const input = document.querySelector('.input-todo');
+                const value = document.querySelector('.input-todo').value;
+                if (!value) return;
+                const newTask = document.createElement('div');
+                newTask.classList.add("todo");
+                // newTask.setAttribute("data_value", num);
+                newTask.innerHTML = `<input class="todo-check" type="checkbox" />
+                    <div class="todo-content">${escapeHtml(value)}</div>
+                    <button class="btn-delete">Delete</button>`;
+                document.querySelector('.todos').appendChild(newTask);
+                document.querySelector('.input-todo').value = '';
+            })
+            
+            //按下刪除按鈕會發生的事
+            document.querySelector('.todos').addEventListener('click', function(e) {
+                // e.preventDefault();
+                // const delTask = document.querySelector('button[data_value="2"]').parentNode.parentNode;
+                // console.log(delTask)
+                // delTask.removeChild(document.querySelector('.todo[data_value="2"]'));
+                const { target } = event;
+                if (target.classList.contains('btn-delete')) {
+                    target.parentNode.remove()
+                    return
+                }
+                if (target.classList.contains('todo-check')) {
+                    if (target.checked) {
+                        target.parentNode.classList.add('done')
+                    }
+                }
+            })
+
+            function escapeHtml(unsafe) {
+                return unsafe
+                    .replace(/&/g, "&amp;")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;")
+                    .replace(/"/g, "&quot;")
+                    .replace(/'/g, "&#039;");
+            }
+        </script>
+    </body>
+</html>
