@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>FE201</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script>
+        function appendToDos(value, existValue) {
+            if (value) {
+                $('.todos').append(`
+                <div class="todo non_completed">
+                    ${value}
+                    <button class="btn_edit">編輯</button>
+                    <button class="btn_mark">標記完成</button>
+                    <button class="btn_delete">刪除</button>
+                </div>`
+                )
+            } else {
+                $('.todos').append(`
+                <div class="todo">
+                    <input class="exist_value" value=${existValue}/>
+                    <button class="btn_edit_completed">完成編輯</button>
+                    <button class="btn_mark">標記完成</button>
+                    <button class="btn_delete">刪除</button>
+                </div>`
+                )
+            }
+        }
+        let value = null
+        let existValue = null
+
+        $(document).ready(function() {
+            $('.btn').click(function (e) {
+                let value = $('.todo_input').val()
+                $('.todo_input').val('')
+                appendToDos(value, existValue)
+            })
+
+            $('.btn_showall').click(()=> {
+                $('div').css('display', 'block')
+            })
+
+            $('.btn_removeall').click(()=> {
+                $('.todos').empty();
+            })
+
+            $('.btn_select_completed').click(()=> {
+                $('div.non_completed').hide()
+            })
+
+            $('.btn_select_non_completed').click(()=> {
+                $('div.completed').hide()
+            })
+
+            $('.todos').on('click', '.btn_delete', function(e) {
+                $(e.target).parent().fadeOut()
+            })
+
+            $('.todos').on('click','.btn_edit', function(e) {
+                let value = null
+                let existValue = $(e.target).parent().contents().first().text()
+                $(e.target).parent().remove()
+                appendToDos(value, existValue)
+            })
+
+            $('.todos').on('click', '.btn_edit_completed', function(e) {
+                let value = $('.exist_value').val()
+                $(e.target).parent().remove()
+                appendToDos(value, existValue)
+            })
+            
+            $('.todos').on('click', '.btn_mark', function(e) {
+                const todo = $(e.target).parent();
+                if (todo.hasClass('completed')) {
+                    todo.css('color', 'black')
+                    todo.removeClass('completed')
+                    todo.addClass('non_completed')
+                    $(e.target).text('標記完成')
+                } else {
+                    todo.css('color', 'green')
+                    todo.addClass('completed')
+                    todo.removeClass('non_completed')
+                    $(e.target).text('標記未完成')
+                }
+            })
+        }) 
+    </script>
+    <style>
+        .todo {
+            padding: 12px;
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+<body>
+    <input class="todo_input" />
+    <button class="btn">Add todo</button>
+    <button class="btn_removeall">Remove all todos</button>
+    <button class="btn_showall">Show all tasks</button>
+    <button class="btn_select_completed">Select completed tasks</button>
+    <button class="btn_select_non_completed">Select non-completed tasks</button>
+    <div class="todos"></div>
+</body>
+</html>

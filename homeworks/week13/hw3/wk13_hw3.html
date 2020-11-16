@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <header>
+        <meta charset="utf-8">
+        <title>Week8 Twitch API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css"/>
+    </header>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .navbar {
+            box-shadow: -1.4px -1.4px 6px 0 #97a2a0;
+        }
+
+        .navbar .wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 84px;
+            background: white;
+            padding: 0px 20px;
+        }
+
+        .navbar_sitename {
+            color: black;
+            font-size: 36px;
+        }
+
+        .navbar_list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            font-size: 18px;
+        }
+
+        .navbar_list li {
+            margin-left: 5px;
+            border-radius: 8px;
+            transition: background 0.2s ease-in;
+            height: 50px;
+            line-height: 50px;
+            padding: 11px;
+        }
+
+        .navbar_list li.active, 
+        .navbar_list li:hover {
+            background: lightgrey;
+        }
+
+        .navbar_list li.active a, 
+        .navbar_list li:hover a {
+            color: white;
+        }
+       
+        .navbar_list li a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            padding: 24px 12px;
+        }
+
+        .wrapper {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0px 12px;
+        }
+
+        .upper-section {
+            text-align: center;
+        }
+
+        .main-section-container {
+            max-width: 1112px;
+            margin: 0 auto;
+            background: white;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .main-section-items {
+            width: 355px;
+            height: 260px;
+            margin-bottom: 14px;
+            margin-left: 14px;
+            display: flex;
+            flex-direction: column;
+            background: lightgray;
+            cursor: pointer;
+        }
+
+        .main-section-items:hover {
+            transform: scale(1.07);
+            filter: brightness(1.2);
+        }
+
+        .preview {
+            width: 355px;
+            height: 180px;
+        }
+
+        .profile-pic img {
+            width: 70px;
+            height: 70px;
+            background-image: url(p-2.png);
+            background-position: center;
+            background-size: cover;
+            background:lightgreen;
+            border-radius: 50px;
+            margin: 4px;
+        }
+
+        .wrapper-inside-left {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .wrapper-inside-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+        }
+
+        .user-status, .user-channel {
+            width: 268px;
+            height: 26px;
+            font-size: 20px;
+            overflow: hidden;
+            margin-left: 6px;
+        }
+
+        @media(max-width: 768px) {
+            .navbar .wrapper {
+                height: 155px;
+                flex-direction:column;
+                justify-content: space-between;
+                padding: 0px;
+            }
+
+            .navbar_sitename {
+                margin-top: 10px;;
+            }
+
+            .navbar_list {
+                display: flex;
+                width: 100%;
+            }
+
+            .navbar_list li {
+                flex: 1;
+                margin-left: 0;
+                border-radius: 0;
+                text-align: center;
+            }
+
+            .main-section-items {
+            width: 355px;
+            height: 250px;
+            margin-bottom: 14px;
+            display: flex;
+            flex-direction: column;
+            background: lightgray;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        }
+
+    </style>
+    <body>
+        <nav class="navbar">
+            <div class="wrapper">
+            <div class="navbar_sitename">
+                Twitch Top Games
+            </div>
+                <ul class="navbar_list">
+                </ul>
+            </div>
+        </nav>
+        <section class="section">
+            <div class="upper-section">
+                <h1></h1>
+                <p>Top 20 live streams sorted by current viewers</p>
+            </div>
+            <div class="main-section">
+                <div class="main-section-container">
+                </div>
+            </div>
+        </section>
+        <script>
+            var url = "https://api.twitch.tv/kraken";
+            var template = `<div class="main-section-items">
+                            <img class="preview" src="$preview" />
+                            <div class="wrapper-inside-left">
+                                <div class="profile-pic">
+                                    <img src="$logo">
+                                </div>
+                                <div class="wrapper-inside-right">
+                                    <div class="user-status">$title</div>
+                                    <div class="user-channel">$channel</div>
+                                </div>
+                            </div>
+                        </div>`
+
+            const myPromise = new Promise ((resolve, reject) => {
+                // 拿到最受歡迎的前五名遊戲並每次動態新增一遊戲到navbar_list（所以共新增五個）
+                var request = new XMLHttpRequest();
+                request.open('GET', url + '/games/top?limit=5', true);
+                request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+                request.setRequestHeader('Client-ID', 'l2c4tqr5o2nurxv9wccl8ojikzkouz');
+                request.onload = function() {
+                    if (this.status >= 200 && this.status < 400) {
+                        const games = JSON.parse(this.response);
+                        resolve(games)
+                    }
+                }; 
+                request.send();
+            })
+            
+            myPromise.then((games) => {
+                var topGames = games.top.map((game) => game.game.name);
+                for (let i = 0; i < topGames.length; i++) {
+                    let element = document.createElement('li');
+                    element.innerHTML = topGames[i];
+                    document.querySelector('.navbar_list').appendChild(element)
+                }
+                return topGames
+            }).then((topGames) => {
+                var request = new XMLHttpRequest();
+                request.open('GET', url + '/streams?game=' + encodeURIComponent(topGames[0]) + '&limit=20', true);
+                request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+                request.setRequestHeader('Client-ID', 'l2c4tqr5o2nurxv9wccl8ojikzkouz');
+
+                request.onload = function() {// 若此請求成功，parse所有的response，並1.<h1>新增第一個遊戲名稱 2.把 data.streams丟給一函式
+                    if (this.status >= 200 && this.status < 400) {
+                        const data = JSON.parse(this.response);
+                        document.querySelector('h1').innerText = topGames[0];
+                        appendStreams(data.streams)
+                    }
+                }; 
+                request.send();
+            }).catch(err => {
+                console.log('fail', err)
+            }) 
+
+            // 拿data.streams的各種資料
+            function appendStreams(streams) {//此時 streams 是一個擁有20筆物件的陣列
+                streams.forEach((stream) => {//每一次對一個物件時
+                    let element = document.createElement('div')//都要新增一個 div
+                    let content = template//也要把物件裡的東西取代原本字串
+                    .replace('$preview', stream.preview.large)
+                    .replace('$logo', stream.channel.logo)
+                    .replace('$title', stream.channel.status)
+                    .replace('$channel', stream.channel.name)
+                    document.querySelector('.main-section-container').appendChild(element)//再把新增的 div 增加到 main-section-container下
+                    element.outerHTML = content//並且讓新增的 div (含標籤本身)被整個 content 取代
+                })
+            }
+
+            //點選 nav bar 後 stream 也跟著變
+            document.querySelector('.navbar_list').addEventListener('click', e => {
+                if (e.target.tagName.toLowerCase() === 'li') {
+                    var text = e.target.innerText;
+                    document.querySelector('h1').innerText = text;
+                    document.querySelector('.main-section-container').innerText = '';
+                    
+                    var request = new XMLHttpRequest();
+                    request.open('GET', url + '/streams?game=' + encodeURIComponent(text) + '&limit=20', true);
+                    request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json');
+                    request.setRequestHeader('Client-ID', 'l2c4tqr5o2nurxv9wccl8ojikzkouz');
+
+                    request.onload = function() {
+                        if (this.status >= 200 && this.status < 400) {
+                            const data = JSON.parse(this.response);
+                            appendStreams(data.streams)
+                        }
+                    }; 
+                    request.send();
+                }
+            })
+
+        </script>
+    </body>
+</html>
