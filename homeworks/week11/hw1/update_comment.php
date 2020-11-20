@@ -59,7 +59,7 @@
             <div class="form_body">
                     <form method="POST" action="handle_update_comment.php">
                         <textarea class="form_body_content" rows="5" name="content"><?php 
-                            echo $row['content']; ?></textarea>
+                            echo escape($row['content']); ?></textarea>
                         <input type="hidden" name="id" value="<?php echo $row['id']; ?>"/>
                         <input class="form_body_btn"type="submit" value="送出" />
                     </form>

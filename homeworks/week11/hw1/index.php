@@ -74,7 +74,7 @@
                     <?php
                         if (!empty($_GET['errCode'])) {
                             $code = $_GET['errCode'];
-                            $msg = 'Erro';
+                            $msg = 'Error';
                             if ($code === '1') {
                                 $msg = '資料不齊全';
                             }

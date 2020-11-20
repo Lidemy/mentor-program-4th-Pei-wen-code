@@ -1,0 +1,182 @@
+$displayFlex: flex;
+$backgroundColour: oldlace;
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0px;
+    background: $backgroundColour;
+    font-family: sans-serif;
+}
+
+.login {
+    text-align: center;
+    &__container {
+        display: $displayFlex;
+        flex-direction: column;
+        background: pink;
+        width: 700px;
+        height: 500px;
+    }
+}
+
+.navbar {
+    display: $displayFlex;
+    justify-content: space-between;
+    height: 92px;
+    background: $backgroundColour;
+}
+
+.for {
+    &_visitor, &_admin {
+        display: $displayFlex;
+        padding: 0px 60px;
+        list-style: none;
+        align-items: center;
+    }
+}
+
+.for_visitor li a, .for_admin li a {
+    margin-left: 8px;
+    text-decoration: none !important;
+}
+
+.banner {
+    background :#FFC300; 
+    height: 300px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    display: inline-block;
+    margin: 0;
+    color: white;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+}
+
+.posts {
+    display: $displayFlex;
+    flex-direction: column;
+}
+
+.card {
+    display: $displayFlex;
+    flex-direction: column;
+    width: 800px;
+    height: 280px;
+    background: #AED6F1 ;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.real_card {
+    display: $displayFlex;
+    flex-direction: column;
+    width: 800px;
+    background: #AED6F1 ;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card_article {
+    display: $displayFlex;
+    justify-content: space-between;
+    width: 800px;
+    background: #AED6F1 ;
+    margin: 0 auto;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.add {
+    &_article {
+        width: 800px;
+        background: #AED6F1 ;
+        margin: 0 auto;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px; 
+    }
+    &_title, &_content {
+        display: inline-block;
+        width: 88px;
+    }
+}
+
+
+.head {
+    display: $displayFlex;
+    justify-content: space-between;
+    height: 52px;
+    background: pink;
+    align-items: flex-end;
+    padding: 0px 10px;
+}
+
+.date {
+    height: 30px;
+    background: lavenderblush;
+    padding: 0px 10px;
+}
+
+.pre_reading {
+    height: 108px;
+    background: lightcoral;
+    padding: 0px 10px;
+
+}
+
+.real_reading {
+    background: lightcoral;
+    padding: 0px 10px;
+
+}
+
+a {
+    text-align: end;
+}
+
+.page_wrapper {
+    align-items: center;
+    background:#FFC300;
+}
+
+.page_wrapper .dividen {
+    margin: 20px auto;
+    background: $backgroundColour;
+    max-width: 100%;
+    height: 4px;
+}
+
+.page_info {
+    text-align: center;
+    color: $backgroundColour;
+    font-size: bold;
+}
+
+.pagenator {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.pagenator a {
+    width: 100px;
+    text-decoration: none;
+    text-align: center;
+    color: $backgroundColour;
+    border: 3px solid oldlace;
+    padding: 10px;
+    margin: 4px;
+}
